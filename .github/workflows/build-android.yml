@@ -36,7 +36,11 @@ jobs:
       - name: Expo Prebuild — generate Android native project
         env:
           EXPO_NO_TELEMETRY: "1"
-        run: npx expo prebuild --platform android --clean
+          CI: "1"
+        run: npx expo prebuild --platform android --clean --no-install
+
+      - name: Install dependencies after prebuild
+        run: pnpm install --no-frozen-lockfile
 
       - name: Make Gradle wrapper executable
         working-directory: android
